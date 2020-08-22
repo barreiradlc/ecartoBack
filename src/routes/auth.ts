@@ -1,23 +1,27 @@
-import { Router } from 'express'
+import { Request, Response, Router } from 'express'
+
+import Auth from "../controllers/Auth";
+
+const authController = new Auth()
 
 const router = Router()
 
 // TODO - DOC
-// TODO - CONTROLER (4)
+// TODO - CONTROLER (2)
 // TODO - MODELS
 // TODO - SERVICES
 // TODO - TESTS
 
-router.get('/', (response, request) => {
-    request.json({
+router.get('/', (request: Request, response: Response) => {
+    return response.json({
         "Aviso": "Rota  de autenticação"
     })
 })
 
-router.post('/login' /* ação de login */ )
-router.post('/register' /* ação de cadastro */ )
-router.post('/recoverPassword' /* ação de recuperação de senha */ )
-router.post('/logout' /* ação de saída */ )
+router.post('/login', authController.login)
+router.post('/register', authController.register )
+// router.post('/recoverPassword' /* ação de recuperação de senha */ )
+// router.post('/logout' /* ação de saída */ )
 
 
 export default router

@@ -11,9 +11,9 @@ router.get('/', (response, request) => {
     })
 })
 
-router.get('/auth' /* doc de autenticação */ )
-router.get('/user' /* doc de ações de usuário */ )
-router.get('/items' /* doc de itens */ )
+// router.get('/auth' /* doc de autenticação */ )
+// router.get('/user' /* doc de ações de usuário */ )
+// router.get('/items' /* doc de itens */ )
 
 
 export default router

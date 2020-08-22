@@ -1,6 +1,9 @@
-import { Router } from 'express'
-
+import { Request, Response, Router } from 'express'
+import { validToken } from '../middlewares/Auth'
+import Item from '../controllers/Item'
 const router = Router()
+
+const itemController = new Item()
 
 // TODO - DOC
 // TODO - CONTROLER (5)
@@ -8,16 +11,19 @@ const router = Router()
 // TODO - SERVICES
 // TODO - TESTS
 
-router.get('/', (response, request) => {
-    request.json({
-        "Aviso": "Rota de items"
-    })
-})
+// router.get('/', (request: Request, response: Response) => {
+//     return response.json({
+//         "Aviso": "Rota de items"        
+//     })
+// })
 
-router.get('/list' /* ação de listagem baseado em distancia*/ )
-router.get('/:id' /* ação de detalhes */ )
-router.post('/' /* ação de criação */ )
-router.put('/:id' /* ação de edição */ )
-router.delete('/:id' /* ação de deleção */ )
+router.use(validToken)
+
+router.post('/create', itemController.create )
+router.get('/list', itemController.list )
+
+router.get('/:id', itemController.show )
+router.put('/:id', itemController.update )
+router.delete('/:id', itemController.delete )
 
 export default router
