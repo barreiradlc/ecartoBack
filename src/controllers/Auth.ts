@@ -2,15 +2,14 @@ import dotenv from "dotenv";
 import { Request, Response } from 'express';
 import bcrypt from "bcryptjs";
 
-
 import User from '../models/User';
-// import Mailer from '../utils/mailer';
+import Mailer from '../utils/Mailer';
 import Encryption from '../utils/Encryption';
 import Validations from '../utils/Validations';
 
 dotenv.config()
 const cripto = new Encryption()
-// const mailer = new Mailer()
+const mailer = new Mailer()
 const validations = new Validations()
 
 class Auth {
@@ -19,9 +18,16 @@ class Auth {
 
         const { email, password } = request.body
 
+        console.log({ request })
+        console.log({ req: request.body})
+
         const validEmail = validations.mailValidate(email)
 
         const user = await User.findOne({ [validEmail ? 'email' : 'username']: email }).select('+password')
+
+        console.log(email, password)
+        console.log(validEmail)
+        console.log(user)
 
         if (!user) {
             return response.status(400).send({ error: "Usuário não encontrado" })

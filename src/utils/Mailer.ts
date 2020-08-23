@@ -12,7 +12,7 @@ class Mailer {
         const transport = nodemailer.createTransport(mailConfig)
 
         const mailOptions = {            
-            from: `Equipe Dê a mão -<deamaoapp@gmail.com>`,
+            from: `Equipe Ecarto -<${process.env.MAIL}>`,
             to: email,
             subject: "Cadastro bem sucedido",
             text: `Cadastro bem sucedido, seja bem vindo ${name}`,

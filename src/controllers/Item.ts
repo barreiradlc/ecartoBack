@@ -10,10 +10,10 @@ class ItemController {
 
             const { latitude, longitude } = request.query;
             const { userId } = response.locals
-
-            console.debug({ longitude, latitude })
-
+            
             const user = await User.findById(userId)
+            
+            if(!user) return response.status(401).json({ error: "User not found" });            
 
             const items = await Item.find({
                 // needs: {
@@ -33,13 +33,8 @@ class ItemController {
                 }
             })
 
-            console.debug(items)
-
             const materiais = items.filter((item) => (item as any).nature === "MATERIAL")
             const artes = items.filter((item) => (item as any).nature === "ARTE")
-
-            console.log({ materiais })
-            console.log({ artes })
 
             return response.json({
                 user,
@@ -69,10 +64,15 @@ class ItemController {
 
         try {
 
+            console.debug({title, nature, description, price, image, latitude, longitude})
+
             const location = await {
                 type: 'Point',
+                
                 coordinates: [longitude, latitude],
             }
+
+            console.debug({location})
 
             const item = await Item.create({
                 title,
@@ -83,6 +83,8 @@ class ItemController {
                 user: user_id,
                 location
             })
+
+            console.log({item})
 
             return response.json(item)
 

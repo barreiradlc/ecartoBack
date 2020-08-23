@@ -6,8 +6,6 @@ const router = Router()
 const itemController = new Item()
 
 // TODO - DOC
-// TODO - CONTROLER (5)
-// TODO - MODELS 
 // TODO - SERVICES
 // TODO - TESTS
 
@@ -19,7 +17,7 @@ const itemController = new Item()
 
 router.use(validToken)
 
-router.post('/create', itemController.create )
+router.post('/', itemController.create )
 router.get('/list', itemController.list )
 
 router.get('/:id', itemController.show )

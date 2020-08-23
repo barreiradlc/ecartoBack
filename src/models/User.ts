@@ -18,8 +18,7 @@ const UserSchema = new Schema({
     },    
     instagram: {
         type: String,
-        unique: true,
-        required: true,
+        unique: true,        
         lowercase: true
     },    
     image: {
