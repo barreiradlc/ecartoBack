@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import Encryption from "../utils/Encryption";
-import User from '../models/User';
 
 const crypt = new Encryption()
 

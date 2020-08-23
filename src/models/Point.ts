@@ -10,7 +10,6 @@ const PointSchema = new mongoose.Schema({
         type:[Number],
         required:true
     }
-
 })
 
 export default PointSchema

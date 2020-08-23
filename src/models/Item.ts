@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+    import mongoose from 'mongoose'
 import Point from './Point'
 
 const ItemSchema = new mongoose.Schema({
@@ -14,6 +14,14 @@ const ItemSchema = new mongoose.Schema({
         type: String,
         required: false,
     },        
+    createdAt:{
+        type: Date,
+        default: Date.now
+    },
+    updated_at: {
+        type: Date,
+        default: Date.now
+    },        
     nature: {
         type: String,
         required: true
@@ -24,20 +32,12 @@ const ItemSchema = new mongoose.Schema({
     location:{
         type: Point,
         index:'2dsphere',
-        select: false
+        select: true
     },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     }
 })
-
-// title
-// description
-// nature
-// price
-// latitude
-// longitude
-// image
 
 export default mongoose.model('Item', ItemSchema)

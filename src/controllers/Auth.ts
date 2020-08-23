@@ -3,13 +3,13 @@ import { Request, Response } from 'express';
 import bcrypt from "bcryptjs";
 
 import User from '../models/User';
-import Mailer from '../utils/Mailer';
+// import Mailer from '../utils/Mailer';
 import Encryption from '../utils/Encryption';
 import Validations from '../utils/Validations';
 
 dotenv.config()
 const cripto = new Encryption()
-const mailer = new Mailer()
+// const mailer = new Mailer()
 const validations = new Validations()
 
 class Auth {
@@ -60,7 +60,7 @@ class Auth {
             const registeredUser = queryUser[0]
 
             if(registeredUser){
-                let errors = []
+                let errors:{ message: string }[] = []
 
                 if((registeredUser as any).email === body.email){
                     errors.push({ message: "Email já cadastrado"})

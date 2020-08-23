@@ -1,24 +1,24 @@
 import dotenv from "dotenv";
 import { Request, Response } from 'express';
-import bcrypt from "bcryptjs";
-
-
 import User from '../models/User';
+
+
 // import Mailer from '../utils/mailer';
-import Encryption from '../utils/Encryption';
-import Validations from '../utils/Validations';
+// import Encryption from '../utils/Encryption';
+// import Validations from '../utils/Validations';
 
 dotenv.config()
-const cripto = new Encryption()
+// const cripto = new Encryption()
 // const mailer = new Mailer()
-const validations = new Validations()
+// const validations = new Validations()
 
 class UserController {
 
     async profile(request: Request, response: Response) {        
+        const { outerUserId } = request.params
         const { userId } = response.locals
         try {
-            const user = await User.findById(userId)
+            const user = await User.findById(outerUserId || userId)
             return response.json(user)
         } catch (error) {
             return response.json({ error })
@@ -27,7 +27,7 @@ class UserController {
     
     async editProfile(request: Request, response: Response) {    
         const { userId } = response.locals
-        const { file, name, email, instagram, about, phone } = request.body;
+        const { file, image, name, email, instagram, about, phone } = request.body;
         
 
         console.log('file --')
@@ -36,11 +36,11 @@ class UserController {
 
         try {
 
-            const values = {
+            const values = await {
                 name, 
                 email, 
                 instagram, 
-                image: file, 
+                image: image || file, 
                 about, 
                 phone
             }
@@ -56,9 +56,9 @@ class UserController {
         }
     }
 
-    async editPassword(request: Request, response: Response) {
+    // async editPassword(request: Request, response: Response) {
 
-    }
+    // }
 
 };
 

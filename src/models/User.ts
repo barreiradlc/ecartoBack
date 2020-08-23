@@ -19,10 +19,11 @@ const UserSchema = new Schema({
     instagram: {
         type: String,
         unique: true,        
-        lowercase: true
+        lowercase: true,
+        required: false,
     },    
     image: {
-        type: String,
+        type: String
     },
     about: {
         type: String,

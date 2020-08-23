@@ -6,7 +6,7 @@ const storage = unggah.gcs({
     rename: (req, file) => {
 
         console.log('FILE')
-        console.log(file)
+        console.log(file, req)
         console.log('FILE')
 
         return `${Date.now()}-${file.originalname}`;

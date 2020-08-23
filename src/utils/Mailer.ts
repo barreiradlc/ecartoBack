@@ -1,8 +1,7 @@
+import dotenv from 'dotenv';
+import { Response } from 'express';
 import nodemailer from 'nodemailer';
-import { Request, Response } from 'express';
-
-import mailConfig from '../config/mail'
-import dotenv from 'dotenv'
+import mailConfig from '../config/mail';
 
 dotenv.config()
 
@@ -35,4 +34,3 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 
 export default Mailer
-

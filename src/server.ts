@@ -1,4 +1,4 @@
-import express, { Request, Response, } from 'express'
+import express from 'express'
 import dotenv from 'dotenv'
 import mongoose from 'mongoose';
 
@@ -20,10 +20,12 @@ import userRoute from './routes/user';
 // NAMESPACES
 // app.use('/docs', docsRoute)
 app.use('/auth', authRoute)
-app.use('/user', userRoute)
 app.use('/items', itemsRoute)
+app.use('/user', userRoute)
 
-app.get('/', (request: Request, response: Response) => {
+app.get('/', (request: express.Request, response: express.Response) => {
+    console.log(request.headers)
+
     return response.json({ Olar: "Estou vivo" })
 })
 

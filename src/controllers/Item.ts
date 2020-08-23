@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import Item from '../models/Item'
-import User from '../models/User'
+import Item from '../models/Item';
+import User from '../models/User';
 
 class ItemController {
 
@@ -11,6 +11,8 @@ class ItemController {
             const { latitude, longitude } = request.query;
             const { userId } = response.locals
             
+            console.log(userId)
+
             const user = await User.findById(userId)
             
             if(!user) return response.status(401).json({ error: "User not found" });            
@@ -96,15 +98,15 @@ class ItemController {
     async update(request: Request, response: Response) {
 
         const { id } = request.params;
-        const { title, nature, description, price, image, latitude, longitude } = request.body;
+        const { title, nature, description, price, image } = request.body;
 
         try {
 
             // atualiza localização?
-            const location = await {
-                type: 'Point',
-                coordinates: [longitude, latitude],
-            }
+            // const location = await {
+            //     type: 'Point',
+            //     coordinates: [longitude, latitude],
+            // }
 
             const values = {
                 title,
@@ -116,7 +118,7 @@ class ItemController {
                 // location
             }
 
-            const item = await Item.findByIdAndUpdate(id, values)
+            await Item.findByIdAndUpdate(id, values)
 
             return response.json(values)
 

@@ -1,6 +1,6 @@
-import { Request, Response, Router } from 'express'
-import { validToken } from '../middlewares/Auth'
+import { Router } from 'express'
 import Item from '../controllers/Item'
+import { validToken } from '../middlewares/Auth'
 const router = Router()
 
 const itemController = new Item()
