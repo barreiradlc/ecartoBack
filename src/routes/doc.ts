@@ -6,6 +6,8 @@ const router = Router()
 // TODO - CONTROLER (2)
 
 router.get('/', (response, request) => {
+    console.log(response)
+
     request.json({
         "Aviso": "Rota de documentação"
     })
