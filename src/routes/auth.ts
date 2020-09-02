@@ -23,5 +23,4 @@ router.post('/register', authController.register )
 // router.post('/changePassword' /* ação de recuperação de senha */ )
 // router.post('/logout' /* ação de saída */ )
 
-
 export default router

@@ -38,6 +38,7 @@ class Auth {
         }
                 
         return response.send({
+            id: (user as any)._id,
             email: (user as any).email,
             username: (user as any).username,
             token: await cripto.newToken((user as any)._id)
@@ -48,20 +49,23 @@ class Auth {
     async register(request: Request, response: Response) {
         const { body } = request
 
+        console.debug('body')
+        console.debug(body)
+        
         try {
-
+            
             const queryUser = await User.find({
                 $or:[
                     {email: body.email},
                     {username: body.username}
                 ]
             })
-
+            
             const registeredUser = queryUser[0]
-
+            
             if(registeredUser){
                 let errors:{ message: string }[] = []
-
+                
                 if((registeredUser as any).email === body.email){
                     errors.push({ message: "Email já cadastrado"})
                 }
@@ -71,13 +75,16 @@ class Auth {
                 }
                 
                 return response.send(errors)
-
+                
             }
             
             let user = await User.create(body)
+            
+            console.debug('user')
+            console.debug(user)
 
             const { email, username } = (user as any)
-
+            
             return response.send({
                 email,
                 username,

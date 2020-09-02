@@ -17,23 +17,24 @@ class ItemController {
             
             if(!user) return response.status(401).json({ error: "User not found" });            
 
-            const items = await Item.find({
-                // needs: {
-                //     $in: parseNeeds
-                // },
-                location: {
-                    $near: {
-                        $geometry: {
-                            type: 'Point',
-                            coordinates: [
-                                longitude,
-                                latitude
-                            ]
-                        },
-                        $maxDistance: 10000
+            const items = await Item
+                .find({
+                    // needs: {
+                    //     $in: parseNeeds
+                    // },
+                    location: {
+                        $near: {
+                            $geometry: {
+                                type: 'Point',
+                                coordinates: [
+                                    longitude,
+                                    latitude
+                                ]
+                            },
+                            $maxDistance: 10000
+                        }
                     }
-                }
-            })
+                }).populate("user", "_id username email")
 
             const materiais = items.filter((item) => (item as any).nature === "MATERIAL")
             const artes = items.filter((item) => (item as any).nature === "ARTE")
@@ -61,7 +62,7 @@ class ItemController {
     }
 
     async create(request: Request, response: Response) {
-        const { user_id } = response.locals
+        const { userId } = response.locals
         const { title, nature, description, price, image, latitude, longitude } = request.body;
 
         try {
@@ -69,12 +70,15 @@ class ItemController {
             console.debug({title, nature, description, price, image, latitude, longitude})
 
             const location = await {
-                type: 'Point',
-                
+                type: 'Point',                
                 coordinates: [longitude, latitude],
             }
 
             console.debug({location})
+
+            // const user = await User.findById(userId)
+
+            console.log(userId)
 
             const item = await Item.create({
                 title,
@@ -82,10 +86,11 @@ class ItemController {
                 price,
                 image,
                 nature,
-                user: user_id,
+                user : userId,
                 location
             })
 
+            console.log({userId})
             console.log({item})
 
             return response.json(item)

@@ -40,7 +40,7 @@ const UserSchema = new Schema({
     phone: {
         type: String,
         required: false,
-    }
+    }    
 })
 
 UserSchema.pre('save', async function(next) {   
