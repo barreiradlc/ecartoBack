@@ -1,0 +1,43 @@
+{
+    "rotas": {
+        "user": {
+            "/?outerUserId=outerUserId": {
+                "descrição":"Detalhamento de perfil do usuário",
+                "método": "GET",
+                "parametros":"Requer o Id do usuário por meio de query param ou JWT na ausência dele",
+                "autenticação": false
+            },
+            "/": {
+                "descrição":"Edição de usuário",
+                "método": "PUT",
+                "parametros":"Requer o Id do usuário por meio de token JWT",
+                "autenticação": true
+            },
+            "/users/delete/:userId": {
+                "descrição":"Edição de senha",
+                "método": "PATCH",                
+                "parametros":"Não requer / aceira parâmetros",
+                "autenticação": false
+            }
+        }        
+    },
+    "modelos": {
+        "User": {
+            "name":"string",
+            "username":"string",
+            "email":"string",
+            "instagram":"string",
+            "about":"string",
+            "image":"string",
+            "phone":"string",
+            "password":"string",
+            "createdAt":"Date"
+        }
+    },
+    "autoria": {
+        "Nome":"Augusto Barreira",
+        "Email":"barreira266@hotmail.com",
+        "Github":"https://github.com/barreiradlc",
+        "Linkedin":"https://www.linkedin.com/in/augusto-barreira-5b7362118/"
+    }
+}

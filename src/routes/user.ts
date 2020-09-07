@@ -1,20 +1,12 @@
-import { Router } from 'express'
-console.log('1')
+import { Router, Response, Request } from 'express'
+import fs from 'fs'
 
 import User from "../controllers/User";
-console.log('2')
-
 import { validToken } from '../middlewares/Auth'
-console.log('3')
 const cgConfig = require('../utils/gcConfig')
 
-console.log('4')
 const userController = new User()
-
-console.log('5')
 const router = Router()
-
-console.log('6')
 
 // TODO - DOC
 // TODO - CONTROLER (1)         
@@ -22,11 +14,16 @@ console.log('6')
 // TODO - SERVICES
 // TODO - TESTS
 
-// router.get('/', (response, request) => {
-//     request.json({
-//         "Aviso": "Rota de ções de usuário"
-//     })
-// })
+router.get('/doc', (request: Request, response: Response) => {    
+    fs.readFile('./src/docs/apiDocUser.json', (err: any, data: any) => {
+        if(err){
+            return response.status(400).json({
+                erro: err
+            })
+        }
+        response.json(JSON.parse(data))
+    })
+})
 
 router.use(validToken)
 

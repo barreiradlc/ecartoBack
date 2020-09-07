@@ -15,8 +15,13 @@ dotenv.config()
 class UserController {
 
     async profile(request: Request, response: Response) {        
-        const { outerUserId } = request.params
+        const { outerUserId } = request.query
         const { userId } = response.locals
+
+        console.log({request})
+        console.log({outerUserId})
+        console.log({userId})
+
         try {
             const user = await User.findById(outerUserId || userId)
             return response.json(user)

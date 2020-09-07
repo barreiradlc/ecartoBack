@@ -21,7 +21,7 @@ class Auth {
         console.log({ request })
         console.log({ req: request.body})
 
-        const validEmail = validations.mailValidate(email)
+        const validEmail = await validations.mailValidate(email)
 
         const user = await User.findOne({ [validEmail ? 'email' : 'username']: email }).select('+password')
 
