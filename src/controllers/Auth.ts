@@ -23,7 +23,7 @@ class Auth {
 
         const validEmail = await validations.mailValidate(email)
 
-        const user = await User.findOne({ [validEmail ? 'email' : 'username']: email }).select('+password')
+        const user = await User.findOne({ [validEmail ? 'email' : 'username']: email }).select('+password recoverPassword')
 
         console.log(email, password)
         console.log(validEmail)
@@ -32,11 +32,21 @@ class Auth {
         if (!user) {
             return response.status(400).send({ error: "Usuário não encontrado" })
         }
-
+        
+        
         if (!await bcrypt.compare(password, (user as any).password)) {
-            return response.status(400).send({ error: "Usuário e senha não correspondem" })
+            if((user as any).recoverPassword){
+                if (!await bcrypt.compare(password, (user as any).recoverPassword)) {                    
+                    return response.status(400).send({ error: "Usuário e senha não correspondem" })
+                }
+            } else {
+                return response.status(400).send({ error: "Usuário e senha não correspondem" })
+            }
         }
-                
+        
+        
+        console.log('FOI?')
+
         return response.send({
             id: (user as any)._id,
             email: (user as any).email,

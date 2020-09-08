@@ -1,15 +1,16 @@
 import dotenv from "dotenv";
 import { Request, Response } from 'express';
 import User from '../models/User';
+import bcrypt from "bcryptjs"
+import crypto from 'crypto'
 
-
-// import Mailer from '../utils/mailer';
+import Mailer from '../utils/mailer';
 // import Encryption from '../utils/Encryption';
 // import Validations from '../utils/Validations';
 
 dotenv.config()
 // const cripto = new Encryption()
-// const mailer = new Mailer()
+const mailer = new Mailer()
 // const validations = new Validations()
 
 class UserController {
@@ -61,9 +62,48 @@ class UserController {
         }
     }
 
-    // async editPassword(request: Request, response: Response) {
+    async newPassword(request: Request, response: Response) {
+        const { email } = request.body;  
 
-    // }
+        try {             
+            const user = await User.findOne({ email })
+
+            if(!user){
+                return response.status(401).json({ error: "Email não cadastrado" })
+            }
+
+            const newPassword = crypto.randomBytes(5).toString("HEX")
+
+            await user.updateOne({
+                recoverPassword: await bcrypt.hash(newPassword, 12)
+            })
+            
+
+            // SEND MAILER
+            await mailer.handleMailSendNewPassword((user as any).name, newPassword, email)
+
+            // TODO RESPONSE
+            return response.send({ "message": "Nova senha gerada com sucesso!" })
+                        
+        } catch (error) {
+            return response.status(401).json({ error })
+        }
+        
+    }
+
+    async editPassword(request: Request, response: Response) {
+        const { userId } = response.locals
+        const { password } = request.body;        
+        try {
+            await User.findByIdAndUpdate(userId, {
+                password: await bcrypt.hash(password, 12),    
+                recoverPassword: undefined            
+            })
+            return response.send({ "message": "Senha alterada com sucesso!" })
+        } catch (error) {
+            return response.status(401).json({ error })
+        }
+    }
 
 };
 

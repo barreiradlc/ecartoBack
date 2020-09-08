@@ -33,6 +33,11 @@ const UserSchema = new Schema({
         required: true,
         select: false
     },    
+    recoverPassword: {
+        type: String,        
+        required: true,
+        select: false
+    },    
     createdAt:{
         type: Date,
         default: Date.now
