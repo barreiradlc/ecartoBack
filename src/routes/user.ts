@@ -14,7 +14,7 @@ const router = Router()
 // TODO - SERVICES
 // TODO - TESTS
 
-router.get('/doc', (request: Request, response: Response) => {    
+router.get('/doc', (request: Request, response: Response) => {
     fs.readFile('./src/docs/apiDocUser.json', (err: any, data: any) => {
         if(err){
             return response.status(400).json({
@@ -25,11 +25,13 @@ router.get('/doc', (request: Request, response: Response) => {
     })
 })
 
+// ROTAS NÃO AUTENTICADAS
+router.post('/', userController.newPassword )
+
 router.use(validToken)
 
 router.get('/', userController.profile )
 router.put('/', cgConfig.single(`file`), userController.editProfile )
 router.patch('/', userController.editPassword )
-router.post('/', userController.newPassword )
 
 export default router

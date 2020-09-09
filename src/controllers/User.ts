@@ -4,7 +4,7 @@ import User from '../models/User';
 import bcrypt from "bcryptjs"
 import crypto from 'crypto'
 
-import Mailer from '../utils/mailer';
+import Mailer from '../utils/Mailer';
 // import Encryption from '../utils/Encryption';
 // import Validations from '../utils/Validations';
 
@@ -72,19 +72,18 @@ class UserController {
                 return response.status(401).json({ error: "Email não cadastrado" })
             }
 
-            const newPassword = crypto.randomBytes(5).toString("HEX")
+            const newPassword = crypto.randomBytes(5).toString("hex")
 
             await user.updateOne({
                 recoverPassword: await bcrypt.hash(newPassword, 12)
             })
-            
-
+                        
             // SEND MAILER
             await mailer.handleMailSendNewPassword((user as any).name, newPassword, email)
-
+            
             // TODO RESPONSE
             return response.send({ "message": "Nova senha gerada com sucesso!" })
-                        
+            
         } catch (error) {
             return response.status(401).json({ error })
         }
@@ -93,13 +92,28 @@ class UserController {
 
     async editPassword(request: Request, response: Response) {
         const { userId } = response.locals
-        const { password } = request.body;        
+        const { password, currentPassword } = request.body;        
         try {
-            await User.findByIdAndUpdate(userId, {
-                password: await bcrypt.hash(password, 12),    
-                recoverPassword: undefined            
-            })
+
+            const user = await User.findById(userId).select('+password recoverPassword')        
+
+            console.debug(user)
+
+            if( !await bcrypt.compare(currentPassword, (user as any).password) && !await bcrypt.compare(currentPassword, (user as any).recoverPassword) ){
+                return response.status(401).json({ error: "Senha atual incorreta" })
+            }
+            
+            (user as any).password = await bcrypt.hash(password, 12);
+            (user as any).recoverPassword = undefined;
+            
+            console.debug(user)
+            
+            await user?.save()
+
+            console.debug(user)
+
             return response.send({ "message": "Senha alterada com sucesso!" })
+
         } catch (error) {
             return response.status(401).json({ error })
         }

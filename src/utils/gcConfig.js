@@ -1,4 +1,4 @@
-const unggah = require('unggah')
+const unggah = require('unggah');
 
 const storage = unggah.gcs({
     keyFilename: "./src/keys/ecartoimgpath-d0d048cb203e.json",
