@@ -32,6 +32,6 @@ router.use(validToken)
 
 router.get('/', userController.profile )
 router.put('/', cgConfig.single(`file`), userController.editProfile )
-router.patch('/', userController.editPassword )
+router.post('/editPassword', userController.editPassword )
 
 export default router

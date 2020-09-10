@@ -34,8 +34,7 @@ const UserSchema = new Schema({
         select: false
     },    
     recoverPassword: {
-        type: String,        
-        required: true,
+        type: String,                
         select: false
     },    
     createdAt:{
@@ -50,8 +49,7 @@ const UserSchema = new Schema({
 
 UserSchema.pre('save', async function(next) {   
     
-    (this as any).password = await bcrypt.hash((this as any).password, 12)
-        
+    (this as any).password = await bcrypt.hash((this as any).password, 12)        
     next()
 })
 

@@ -23,7 +23,7 @@ class Auth {
 
         const validEmail = await validations.mailValidate(email)
 
-        const user = await User.findOne({ [validEmail ? 'email' : 'username']: email }).select('+password recoverPassword')
+        const user = await User.findOne({ [validEmail ? 'email' : 'username']: email }).select('+password +recoverPassword')
 
         console.log(email, password)
         console.log(validEmail)
@@ -45,7 +45,9 @@ class Auth {
         }
         
         
-        console.log('FOI?')
+        console.debug(user);
+        
+        // console.debug('FOI?')
 
         return response.send({
             id: (user as any)._id,
