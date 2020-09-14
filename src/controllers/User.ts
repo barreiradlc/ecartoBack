@@ -5,6 +5,7 @@ import bcrypt from "bcryptjs"
 import crypto from 'crypto'
 
 import Mailer from '../utils/Mailer';
+import Item from "../models/Item";
 // import Encryption from '../utils/Encryption';
 // import Validations from '../utils/Validations';
 
@@ -15,15 +16,18 @@ const mailer = new Mailer()
 
 class UserController {
 
-    async profile(request: Request, response: Response) {        
+    async profile(request: Request, response: Response) {
         const { outerUserId } = request.query
         const { userId } = response.locals
-
-        console.log({request})
-        console.log({outerUserId})
+        
         console.log({userId})
 
         try {
+            // const itens = Item.find({ user: {_id : userId} })
+        
+            // return response.json(itens)
+
+            // return 
             const user = await User.findById(outerUserId || userId)
             return response.json(user)
         } catch (error) {
@@ -35,11 +39,6 @@ class UserController {
         const { userId } = response.locals
         const { file, image, name, email, instagram, about, phone } = request.body;
         
-
-        console.log('file --')
-        console.log(file)
-        console.log('file --')
-
         try {
 
             const values = await {

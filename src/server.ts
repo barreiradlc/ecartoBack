@@ -19,7 +19,7 @@ import userRoute from './routes/user';
 
 // NAMESPACES
 // app.use('/docs', docsRoute)
-app.use('/auth', authRoute)
+app.use('/auth/v2', authRoute)
 app.use('/items', itemsRoute)
 app.use('/user', userRoute)
 
