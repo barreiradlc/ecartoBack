@@ -20,18 +20,29 @@ class UserController {
         const { outerUserId } = request.query
         const { userId } = response.locals
         
-        console.log({userId})
-
         try {
-            // const itens = Item.find({ user: {_id : userId} })
-        
-            // return response.json(itens)
-
-            // return 
+            const itens = await Item.find({ user: outerUserId || userId })
             const user = await User.findById(outerUserId || userId)
-            return response.json(user)
+
+            const artes = itens.filter( item => (item as any).nature === "ARTE" )
+            const materiais = itens.filter( item => (item as any).nature === "MATERIAL" )
+
+            return response.json({
+                // perfil
+                username: (user as any).username,
+                name: (user as any).name,
+                email: (user as any).email,
+                instagram: (user as any).instagram,
+                image: (user as any).image,
+                about: (user as any).about,
+                createdAt: (user as any).createdAt,
+                phone: (user as any).phone,
+                // artes e materiais
+                artes,
+                materiais
+            })
         } catch (error) {
-            return response.json({ error })
+            return response.json(error);
         }
     }
     
