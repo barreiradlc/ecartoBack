@@ -2,8 +2,6 @@ import express from 'express'
 import dotenv from 'dotenv'
 import mongoose from 'mongoose';
 
-// TODO - DEPLOY
-// TODO - MAILER
 const app = express()
 
 // CONFIGS

@@ -29,6 +29,7 @@ class UserController {
 
             return response.json({
                 // perfil
+                _id: (user as any)._id,
                 username: (user as any).username,
                 name: (user as any).name,
                 email: (user as any).email,

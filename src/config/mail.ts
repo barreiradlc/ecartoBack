@@ -7,7 +7,7 @@ dotenv.config()
 //     auth: {
 //         user: process.env.MAIL,
 //         pass: process.env.PASS
-//     }    
+//     }
 // }
 
 export default {
@@ -17,5 +17,5 @@ export default {
     auth: {
         user: process.env.MAIL,
         pass: process.env.PASS
-    }    
+    }
 }

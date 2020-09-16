@@ -1,4 +1,4 @@
-    import mongoose from 'mongoose'
+import mongoose from 'mongoose'
 import Point from './Point'
 
 const ItemSchema = new mongoose.Schema({
@@ -9,29 +9,29 @@ const ItemSchema = new mongoose.Schema({
     description: {
         type: String,
         required: false
-    },        
+    },
     image: {
         type: String,
         required: false,
-    },        
-    createdAt:{
+    },
+    createdAt: {
         type: Date,
         default: Date.now
     },
     updated_at: {
         type: Date,
         default: Date.now
-    },        
+    },
     nature: {
         type: String,
         required: true
-    },        
-    price:{
-        type: Number,           
     },
-    location:{
+    price: {
+        type: Number,
+    },
+    location: {
         type: Point,
-        index:'2dsphere',
+        index: '2dsphere',
         select: true
     },
     user: {
