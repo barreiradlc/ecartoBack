@@ -2,12 +2,9 @@ import { Router } from 'express';
 import Auth from "../controllers/Auth";
 
 const authController = new Auth()
-
 const router = Router()
 
 // TODO - DOC
-// TODO - CONTROLER (3)
-// TODO - MODELS
 // TODO - SERVICES
 // TODO - TESTS
 
@@ -19,8 +16,5 @@ const router = Router()
 
 router.post('/login', authController.login)
 router.post('/register', authController.register )
-// router.post('/recoverPassword' /* ação de recuperação de senha */ )
-// router.post('/changePassword' /* ação de recuperação de senha */ )
-// router.post('/logout' /* ação de saída */ )
 
 export default router

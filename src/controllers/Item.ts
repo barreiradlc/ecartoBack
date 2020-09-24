@@ -9,9 +9,7 @@ class ItemController {
         try {
 
             const { latitude, longitude } = request.query;
-            const { userId } = response.locals
-            
-            console.log(userId)
+            const { userId } = response.locals        
 
             const user = await User.findById(userId)
             
@@ -19,9 +17,6 @@ class ItemController {
 
             const items = await Item
                 .find({
-                    // needs: {
-                    //     $in: parseNeeds
-                    // },
                     location: {
                         $near: {
                             $geometry: {
@@ -65,20 +60,12 @@ class ItemController {
         const { userId } = response.locals
         const { title, nature, description, price, image, latitude, longitude } = request.body;
 
-        try {
-
-            console.debug({title, nature, description, price, image, latitude, longitude})
+        try {        
 
             const location = await {
                 type: 'Point',                
                 coordinates: [longitude, latitude],
-            }
-
-            console.debug({location})
-
-            // const user = await User.findById(userId)
-
-            console.log(userId)
+            }            
 
             const item = await Item.create({
                 title,
@@ -89,9 +76,6 @@ class ItemController {
                 user : userId,
                 location
             })
-
-            console.log({userId})
-            console.log({item})
 
             return response.json(item)
 

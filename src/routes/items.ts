@@ -9,19 +9,13 @@ const itemController = new Item()
 // TODO - SERVICES
 // TODO - TESTS
 
-// router.get('/', (request: Request, response: Response) => {
-//     return response.json({
-//         "Aviso": "Rota de items"        
-//     })
-// })
+router.use(validToken);
 
-router.use(validToken)
+router.post('/', itemController.create)
+router.get('/list', itemController.list)
 
-router.post('/', itemController.create )
-router.get('/list', itemController.list )
-
-router.get('/:id', itemController.show )
-router.put('/:id', itemController.update )
-router.delete('/:id', itemController.delete )
+router.get('/:id', itemController.show)
+router.put('/:id', itemController.update)
+router.delete('/:id', itemController.delete)
 
 export default router

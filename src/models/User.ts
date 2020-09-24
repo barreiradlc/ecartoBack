@@ -15,13 +15,13 @@ const UserSchema = new Schema({
         unique: true,
         required: true,
         lowercase: true
-    },    
+    },
     instagram: {
         type: String,
-        unique: true,        
+        unique: true,
         lowercase: true,
         required: false,
-    },    
+    },
     image: {
         type: String
     },
@@ -29,27 +29,27 @@ const UserSchema = new Schema({
         type: String,
     },
     password: {
-        type: String,        
+        type: String,
         required: true,
         select: false
-    },    
+    },
     recoverPassword: {
-        type: String,                
+        type: String,
         select: false
-    },    
-    createdAt:{
+    },
+    createdAt: {
         type: Date,
         default: Date.now
     },
     phone: {
         type: String,
         required: false,
-    }    
+    }
 })
 
-UserSchema.pre('save', async function(next) {   
-    
-    (this as any).password = await bcrypt.hash((this as any).password, 12)        
+UserSchema.pre('save', async function (next) {
+
+    (this as any).password = await bcrypt.hash((this as any).password, 12)
     next()
 })
 

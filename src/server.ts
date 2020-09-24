@@ -7,7 +7,7 @@ const app = express()
 // CONFIGS
 app.use(express.json())
 dotenv.config()
-mongoose.connect(String(process.env.MONGO_URI),  { useNewUrlParser: true , useUnifiedTopology: true })
+mongoose.connect(String(process.env.MONGO_URI), { useNewUrlParser: true, useUnifiedTopology: true })
 
 // ROTAS
 // import docsRoute from './routes/doc';
@@ -23,7 +23,6 @@ app.use('/user', userRoute)
 
 app.get('/', (request: express.Request, response: express.Response) => {
     console.log(request.headers)
-
     return response.json({ Olar: "Estou vivo" })
 })
 
