@@ -14,12 +14,14 @@ mongoose.connect(String(process.env.MONGO_URI), { useNewUrlParser: true, useUnif
 import authRoute from './routes/auth';
 import itemsRoute from './routes/items';
 import userRoute from './routes/user';
+import chatRoute from './routes/chat';
 
 // NAMESPACES
 // app.use('/docs', docsRoute)
 app.use('/auth/v2', authRoute)
 app.use('/items', itemsRoute)
 app.use('/user', userRoute)
+app.use('/chat', chatRoute)
 
 app.get('/', (request: express.Request, response: express.Response) => {
     console.log(request.headers)

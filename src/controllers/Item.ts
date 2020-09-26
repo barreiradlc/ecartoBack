@@ -65,7 +65,10 @@ class ItemController {
             const location = await {
                 type: 'Point',                
                 coordinates: [longitude, latitude],
-            }            
+            }
+            // const user = await User.findById(userId)
+
+            console.log(userId)
 
             const item = await Item.create({
                 title,
@@ -76,6 +79,9 @@ class ItemController {
                 user : userId,
                 location
             })
+
+            console.log({userId})
+            console.log({item})
 
             return response.json(item)
 

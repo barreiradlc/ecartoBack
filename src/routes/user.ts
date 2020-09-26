@@ -9,7 +9,6 @@ const userController = new User()
 const router = Router()
 
 // TODO - DOC
-// TODO - CONTROLER (1)         
 // TODO - MODELS
 // TODO - SERVICES
 // TODO - TESTS

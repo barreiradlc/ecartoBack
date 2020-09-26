@@ -20,11 +20,9 @@ class Mailer {
 
         await transport.sendMail(mailOptions, function(err : any, response: Response) {
             if(err){
-                console.log(`ERRO!!!`, err)
-            }else {
-                console.log(`DEU BOM!!!`, response)                
+               return console.log(`ERRO!!!`, err)
             }
-
+            console.log(`DEU BOM!!!`, response)                            
         })
 
     }
@@ -42,17 +40,15 @@ class Mailer {
 
         await transport.sendMail(mailOptions, function(err : any, response: Response) {
             if(err){
-                console.log(`ERRO!!!`, err)
-            }else {
-                console.log(`DEU BOM!!!`, response)                
+                return console.log(`ERRO!!!`, err)
             }
-
+            
+            console.log(`DEU BOM!!!`, response)                
         })
 
     }
 }
 
-// process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
-
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 export default Mailer

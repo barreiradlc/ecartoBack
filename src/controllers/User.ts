@@ -106,15 +106,7 @@ class UserController {
         const { password, currentPassword } = request.body;        
         try {
 
-            console.log('EDIT PASS')
-
             const user = await User.findById(userId).select('+password +recoverPassword');
-
-            console.debug(user)
-            console.debug(request.body)
-
-            console.debug(!await bcrypt.compare(currentPassword, (user as any).password))
-            console.debug(!await bcrypt.compare(currentPassword, (user as any).recoverPassword))
 
             if(!await bcrypt.compare(currentPassword, (user as any).password) && !await bcrypt.compare(currentPassword, (user as any).recoverPassword) ){
                 return response.status(401).json({ error: "Senha atual incorreta" })
@@ -124,12 +116,8 @@ class UserController {
                 password : await bcrypt.hash(password, 12),
                 recoverPassword : undefined        
             })
-
-            console.debug(user)
             
-            // await user?.save()
-
-            console.debug(user)
+            // await user?.save()            
 
             return response.send({ "message": "Senha alterada com sucesso!" })
 
