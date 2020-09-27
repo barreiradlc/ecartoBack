@@ -24,7 +24,6 @@ export const validToken = async (request: Request, response: Response, next: Nex
     }
 
     response.locals.userId = await crypt.decodeToken(token)
-    // response.locals.user = await User.findById(id)
-
+    
     next()
 }

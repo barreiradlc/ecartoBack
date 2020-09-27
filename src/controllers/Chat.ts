@@ -6,7 +6,7 @@ import Message from '../models/Message';
 class ChatController {
     async createOrFindChatRoom(request: Request, response: Response){
         const { id } = request.params;
-        const { userId } = response.locals        
+        const { userId } = response.locals;     
 
         try {
             
@@ -16,10 +16,15 @@ class ChatController {
                         $in: [userId, id]
                     },
                 })
-
-            console.log("-----")
-            console.log(id)
-            console.log(chat)
+                .populate({ 
+                    path:'users',
+                    select: 'name image -_id',
+                    options: { limit: 15}
+                })
+                .populate({ 
+                    path:'messages',
+                    options: { limit: 15}
+                })
 
             if(chat.length === 0){
                 return response.json(await Chat.create({users: [userId, id]})) 
@@ -49,7 +54,7 @@ class ChatController {
             
             await chat?.save()
 
-            return response.json(chat);
+            return response.json(newMessage);
             
         } catch (error) {
             return response.status(400).json({ error: "Chat not found" });
@@ -57,21 +62,23 @@ class ChatController {
         
     }
     
-    async findChats(response: Response){                
-        const { userId } = response.locals;
-        
+    async findChats(request: Request, response: Response){                           
+        const { userId } = response.locals;                 
+
         try {
+            
             const chats = await Chat
                 .find({users: userId})
+                .populate({ 
+                    path:'users',
+                    select: 'name image -_id',
+                    options: { limit: 15}
+                })
                 .populate({ 
                     path:'messages',
                     options: { limit: 15}
                 })
-                .populate({ 
-                    path:'users',                    
-                    options: { limit: 15}
-                })
-                        
+                                        
             return response.json(chats);
             
         } catch (error) {

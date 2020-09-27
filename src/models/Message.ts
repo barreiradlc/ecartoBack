@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 export interface IMessage extends mongoose.Document {
     body: string;     
     createdAt?: Date;
-    read?: Boolean;
+    read?: Boolean;    
     sender: String;
 };
 

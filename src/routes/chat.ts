@@ -7,20 +7,8 @@ const chatController = new Chat()
 const router = Router()
 
 // TODO - DOC
-// TODO - MODELS
 // TODO - SERVICES
 // TODO - TESTS
-
-// router.get('/doc', (request: Request, response: Response) => {
-//     fs.readFile('./src/docs/apiDocUser.json', (err: any, data: any) => {
-//         if(err){
-//             return response.status(400).json({
-//                 erro: err
-//             })
-//         }
-//         response.json(JSON.parse(data))
-//     })
-// })
 
 router.use(validToken)
 
