@@ -13,12 +13,12 @@ class ChatController {
             const chat = await Chat
                 .find({
                     users: {
-                        $in: [userId, id]
+                        $all: [userId, id]
                     },
                 })
                 .populate({ 
                     path:'users',
-                    select: 'name image -_id',
+                    select: 'name image',
                     options: { limit: 15}
                 })
                 .populate({ 
@@ -71,7 +71,7 @@ class ChatController {
                 .find({users: userId})
                 .populate({ 
                     path:'users',
-                    select: 'name image -_id',
+                    select: 'name image',
                     options: { limit: 15}
                 })
                 .populate({ 
